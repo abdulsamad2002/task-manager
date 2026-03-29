@@ -1,6 +1,32 @@
-@TaskManagerAPI_HostAddress = http://localhost:5206
+@TaskManagerAPI_HostAddress = http://localhost:5000
 
-GET {{TaskManagerAPI_HostAddress}}/weatherforecast/
+# Authentication
+POST {{TaskManagerAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+###
+
+# Get Tasks
+GET {{TaskManagerAPI_HostAddress}}/api/tasks
+Authorization: Bearer <TOKEN_HERE>
 Accept: application/json
 
 ###
+
+# Create Task
+POST {{TaskManagerAPI_HostAddress}}/api/tasks
+Authorization: Bearer <TOKEN_HERE>
+Content-Type: application/json
+
+{
+  "title": "Document Project",
+  "description": "Create all markdown documentation for the project.",
+  "priority": "High",
+  "dueDate": "2026-04-01T12:00:00Z",
+  "assignedToUserId": 1
+}

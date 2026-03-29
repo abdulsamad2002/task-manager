@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,6 +9,9 @@ using TaskManagerAPI.Models;
 
 namespace TaskManagerAPI.Controllers
 {
+    /// <summary>
+    /// Handles user registration and login. Issues JWT tokens on successful authentication.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -22,75 +25,94 @@ namespace TaskManagerAPI.Controllers
             _config = config;
         }
 
+        /// <summary>
+        /// Registers a new user. The role is always forced to Employee (RoleId = 3),
+        /// regardless of any value provided in the request body.
+        /// </summary>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
             try
             {
-                // FORCE the RoleId to 3 (Employee) no matter what the user sends
-                int defaultRole = 3;
+                const int employeeRoleId = 3;
 
                 var newUser = await _context.RegisterUserAsync(
                     user.FullName,
                     user.Email,
                     user.Password,
-                    defaultRole // <--- We use our hardcoded '3' here
+                    employeeRoleId
                 );
 
-                if (newUser == null) return BadRequest("Registration failed.");
+                if (newUser == null)
+                    return BadRequest(new { message = "Registration failed. Email may already be in use." });
+
                 return Ok(newUser);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Authenticates a user with email and password.
+        /// Returns a JWT token and basic user info on success.
+        /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
             var user = await _context.ValidateUserAsync(login.Email, login.Password);
 
-            if (user == null) return Unauthorized("Invalid email or password.");
+            if (user == null)
+                return Unauthorized(new { message = "Invalid email or password." });
 
             var token = GenerateJwtToken(user);
 
             return Ok(new
             {
-                Token = token,
-                User = new { user.UserId, user.FullName, user.Email, user.RoleId }
+                token,
+                user = new
+                {
+                    user.UserId,
+                    user.FullName,
+                    user.Email,
+                    user.RoleId
+                }
             });
         }
 
+        // ─── Private ──────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Generates a signed JWT token containing user identity and role claims.
+        /// Token is valid for 8 hours.
+        /// </summary>
         private string GenerateJwtToken(User user)
         {
-            // --- NEW: ROLE TRANSLATION LOGIC ---
-            // This maps your database RoleId to the string the Controller expects
             string roleName = user.RoleId switch
             {
                 1 => "Admin",
                 2 => "Manager",
-                3 => "Employee",
                 _ => "Employee"
             };
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                // IMPORTANT: Use ClaimTypes.Role so the [Authorize] attribute can find it
                 new Claim(ClaimTypes.Role, roleName),
-                new Claim("RoleId", user.RoleId.ToString()) // Keeping this for frontend use
+                new Claim("RoleId", user.RoleId.ToString())
             };
 
             var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddHours(8),
+                issuer:   _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims:   claims,
+                expires:  DateTime.UtcNow.AddHours(8),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

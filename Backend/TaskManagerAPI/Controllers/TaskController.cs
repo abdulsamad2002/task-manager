@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TaskManagerAPI.Data;
@@ -6,9 +6,13 @@ using TaskManagerAPI.Models;
 
 namespace TaskManagerAPI.Controllers
 {
+    /// <summary>
+    /// Manages task CRUD operations. All endpoints require a valid JWT token.
+    /// Role-based restrictions are applied per endpoint.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // This locks the whole controller; you MUST have a JWT token
+    [Authorize]
     public class TaskController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -18,16 +22,22 @@ namespace TaskManagerAPI.Controllers
             _context = context;
         }
 
-        // 1. Get Tasks for the Logged-in User (Calls sp_GetTasksByUserId)
+        /// <summary>
+        /// Returns all tasks assigned to the currently authenticated user.
+        /// Available to all roles.
+        /// </summary>
         [HttpGet("my-tasks")]
         public async Task<IActionResult> GetMyTasks()
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
             var tasks = await _context.GetTasksByUserIdAsync(userId);
             return Ok(tasks);
         }
 
-        // 2. Admin/Manager: Get ALL Tasks (Calls sp_GetAllTasksAdmin)
+        /// <summary>
+        /// Returns all tasks across the entire organisation.
+        /// Restricted to Admin and Manager roles.
+        /// </summary>
         [HttpGet("all-tasks")]
         [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> GetAllTasks()
@@ -36,33 +46,39 @@ namespace TaskManagerAPI.Controllers
             return Ok(tasks);
         }
 
-        // 3. Admin/Manager: Create Task (Calls sp_CreateTask)
-        // 3. Admin/Manager: Create Task (Matches your CreateTaskAsync(WorkTask t))
+        /// <summary>
+        /// Creates a new task and assigns it to a user.
+        /// Restricted to Admin and Manager roles.
+        /// </summary>
         [HttpPost("create")]
         [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> CreateTask([FromBody] WorkTask task)
         {
-            // You are passing the whole 'task' object here as your method requires
             await _context.CreateTaskAsync(task);
-            return Ok(new { message = "Task created successfully" });
+            return Ok(new { message = "Task created successfully." });
         }
 
-        // 4. Update Task Status (Matches your UpdateTaskStatusAsync(int taskId, string newStatus))
-        [HttpPut("update-status/{taskId}")]
+        /// <summary>
+        /// Updates the status of an existing task (e.g., Pending → In Progress → Completed).
+        /// Available to all authenticated roles.
+        /// </summary>
+        [HttpPut("update-status/{taskId:int}")]
         public async Task<IActionResult> UpdateStatus(int taskId, [FromBody] string status)
         {
-            // We pass taskId and the string status to match (int taskId, string newStatus)
             await _context.UpdateTaskStatusAsync(taskId, status);
-            return Ok(new { message = "Status updated successfully" });
+            return Ok(new { message = "Task status updated successfully." });
         }
 
-        // 5. Admin Only: Delete Task (Calls sp_DeleteTask)
-        [HttpDelete("delete/{taskId}")]
+        /// <summary>
+        /// Permanently deletes a task by ID.
+        /// Restricted to Admin role only.
+        /// </summary>
+        [HttpDelete("delete/{taskId:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTask(int taskId)
         {
             await _context.DeleteTaskAsync(taskId);
-            return Ok(new { message = "Task deleted" });
+            return Ok(new { message = "Task deleted successfully." });
         }
     }
 }
