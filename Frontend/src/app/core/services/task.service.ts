@@ -35,6 +35,13 @@ export class TaskService {
     );
   }
 
+  updateTask(task: WorkTask): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(
+      `${environment.apiBase}/api/Task/update`,
+      task
+    );
+  }
+
   updateStatus(
     taskId: number,
     status: string
@@ -49,6 +56,12 @@ export class TaskService {
   deleteTask(taskId: number): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(
       `${environment.apiBase}/api/Task/delete/${taskId}`
+    );
+  }
+
+  getUsers(): Observable<import('../../models/task.model').User[]> {
+    return this.http.get<import('../../models/task.model').User[]>(
+      `${environment.apiBase}/api/Task/users`
     );
   }
 }

@@ -19,3 +19,10 @@ export interface CreateTaskRequest {
   status: TaskStatus;
   assignedToUserId: number;
 }
+
+export interface User {
+  userId: number;
+  fullName: string;
+  email: string;
+  roleId: number;
+}

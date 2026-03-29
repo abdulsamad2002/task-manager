@@ -4,8 +4,11 @@ import {
   input,
   output,
   computed,
+  signal,
+  OnInit,
 } from '@angular/core';
-import { WorkTask, TaskStatus } from '../../models/task.model';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { WorkTask, TaskStatus, TaskPriority, User } from '../../models/task.model';
 import { TaskService } from '../../core/services/task.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
@@ -13,48 +16,104 @@ import { ToastService } from '../../core/services/toast.service';
 @Component({
   selector: 'app-task-modal',
   standalone: true,
+  imports: [ReactiveFormsModule],
   template: `
     <div class="modal-overlay" (click)="onOverlayClick($event)">
       <div class="modal-box glass-card" id="modal-box">
         <button class="modal-close btn-icon" (click)="closed.emit()">✕</button>
 
         <div class="modal-header">
-          <span class="badge badge-{{ priorityKey() }}">{{ task().priority }}</span>
-          <h2 class="modal-title">{{ task().title }}</h2>
-          <div class="modal-meta">
-            <span class="badge badge-{{ statusKey() }}">{{ task().status }}</span>
-            <span>📅 {{ formatDate(task().dueDate) }}{{ isOverdue() ? ' ⚠️ Overdue' : '' }}</span>
-            @if (task().assignedToUserId) {
-              <span>👤 User #{{ task().assignedToUserId }}</span>
-            }
-          </div>
+          @if (!isEditing()) {
+            <span class="badge badge-{{ priorityKey() }}">{{ task().priority }}</span>
+            <h2 class="modal-title">{{ task().title }}</h2>
+            <div class="modal-meta">
+              <span class="badge badge-{{ statusKey() }}">{{ task().status }}</span>
+              <span>📅 {{ formatDate(task().dueDate) }}{{ isOverdue() ? ' ⚠️ Overdue' : '' }}</span>
+              @if (task().assignedToUserId) {
+                <span>👤 {{ assignedToName() }}</span>
+              }
+            </div>
+          } @else {
+            <h2 class="modal-title">Edit Task</h2>
+          }
         </div>
 
         <div class="modal-body">
-          <p class="modal-desc">{{ task().description || 'No description provided.' }}</p>
+          @if (!isEditing()) {
+            <p class="modal-desc">{{ task().description || 'No description provided.' }}</p>
 
-          <div class="modal-status-section">
-            <label class="form-label">Update Status</label>
-            <div class="status-pills">
-              @for (s of statuses; track s.value) {
-                <button
-                  class="status-pill"
-                  [class.active]="task().status === s.value"
-                  [disabled]="updating()"
-                  (click)="changeStatus(s.value)">
-                  {{ s.icon }} {{ s.label }}
+            <div class="modal-status-section">
+              <label class="form-label">Update Status</label>
+              <div class="status-pills">
+                @for (s of statuses; track s.value) {
+                  <button
+                    class="status-pill"
+                    [class.active]="task().status === s.value"
+                    [disabled]="updating()"
+                    (click)="changeStatus(s.value)">
+                    {{ s.icon }} {{ s.label }}
+                  </button>
+                }
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              @if (auth.isManager) {
+                <button class="btn btn-secondary" (click)="toggleEdit()">
+                  ✏️ Edit Details
+                </button>
+              }
+              @if (auth.isAdmin) {
+                <button class="btn btn-danger" [disabled]="deleting()" (click)="onDelete()">
+                  @if (deleting()) { <span class="spinner"></span> }
+                  🗑 Delete Task
                 </button>
               }
             </div>
-          </div>
+          } @else {
+            <!-- EDIT FORM -->
+            <form [formGroup]="editForm" (ngSubmit)="onSave()" class="edit-form">
+              <div class="form-group">
+                <label class="form-label">Title</label>
+                <input class="form-input" formControlName="title" />
+              </div>
 
-          @if (auth.isAdmin) {
-            <div class="modal-actions">
-              <button class="btn btn-danger" [disabled]="deleting()" (click)="onDelete()">
-                @if (deleting()) { <span class="spinner"></span> }
-                🗑 Delete Task
-              </button>
-            </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Priority</label>
+                  <select class="form-input form-select" formControlName="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Due Date</label>
+                  <input class="form-input" type="date" formControlName="dueDate" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Assign To</label>
+                <select class="form-input form-select" formControlName="assignedToUserId">
+                  @for (u of users(); track u.userId) {
+                    <option [value]="u.userId">{{ u.fullName }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input form-textarea" formControlName="description"></textarea>
+              </div>
+
+              <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" (click)="toggleEdit()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="saving()">
+                  @if (saving()) { <span class="spinner"></span> } Save Changes
+                </button>
+              </div>
+            </form>
           }
         </div>
       </div>
@@ -109,10 +168,14 @@ import { ToastService } from '../../core/services/toast.service';
     .status-pill:hover:not(:disabled) { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-light); }
     .status-pill.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-light); font-weight: 600; }
     .modal-actions { display: flex; gap: 12px; }
-    @media (max-width: 600px) { .modal-box { padding: 24px; } }
+    
+    .edit-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    @media (max-width: 600px) { .modal-box { padding: 24px; } .form-row { grid-template-columns: 1fr; } }
   `],
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements OnInit {
   task    = input.required<WorkTask>();
   closed  = output<void>();
   updated = output<void>();
@@ -121,13 +184,21 @@ export class TaskModalComponent {
   taskSvc = inject(TaskService);
   auth    = inject(AuthService);
   toast   = inject(ToastService);
+  fb      = inject(FormBuilder);
 
-  updating = computed(() => false);  // replaced with local signal below
-  deleting = computed(() => false);
+  isEditing = signal(false);
+  updating  = signal(false);
+  deleting  = signal(false);
+  saving    = signal(false);
+  users     = signal<User[]>([]);
 
-  // local state
-  private _updating = false;
-  private _deleting = false;
+  editForm = this.fb.nonNullable.group({
+    title:            ['', Validators.required],
+    description:      [''],
+    priority:         ['Low' as TaskPriority, Validators.required],
+    dueDate:          ['', Validators.required],
+    assignedToUserId: [0, [Validators.required, Validators.min(1)]],
+  });
 
   readonly statuses: { value: TaskStatus; label: string; icon: string }[] = [
     { value: 'Pending',     label: 'Pending',     icon: '🕐' },
@@ -146,6 +217,55 @@ export class TaskModalComponent {
     this.task().status !== 'Completed'
   );
 
+  assignedToName = computed(() => {
+    const t = this.task() as any;
+    return t.assignedToName || `User #${t.assignedToUserId}`;
+  });
+
+  ngOnInit(): void {
+    if (this.auth.isManager) {
+      this.taskSvc.getUsers().subscribe(users => this.users.set(users));
+    }
+  }
+
+  toggleEdit(): void {
+    if (this.isEditing()) {
+      this.isEditing.set(false);
+    } else {
+      const t = this.task();
+      this.editForm.patchValue({
+        title: t.title,
+        description: t.description,
+        priority: t.priority,
+        dueDate: t.dueDate ? new Date(t.dueDate).toISOString().split('T')[0] : '',
+        assignedToUserId: t.assignedToUserId
+      });
+      this.isEditing.set(true);
+    }
+  }
+
+  onSave(): void {
+    if (this.editForm.invalid) return;
+    this.saving.set(true);
+    const updatedTask: WorkTask = {
+      ...this.task(),
+      ...this.editForm.getRawValue()
+    };
+
+    this.taskSvc.updateTask(updatedTask).subscribe({
+      next: () => {
+        this.toast.success('Task updated successfully');
+        this.updated.emit();
+        this.isEditing.set(false);
+        this.saving.set(false);
+      },
+      error: (err) => {
+        this.toast.error(err?.error?.message || 'Failed to update task');
+        this.saving.set(false);
+      }
+    });
+  }
+
   onOverlayClick(e: MouseEvent): void {
     if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
       this.closed.emit();
@@ -153,33 +273,33 @@ export class TaskModalComponent {
   }
 
   changeStatus(newStatus: TaskStatus): void {
-    if (this._updating || newStatus === this.task().status) return;
-    this._updating = true;
+    if (this.updating() || newStatus === this.task().status) return;
+    this.updating.set(true);
     this.taskSvc.updateStatus(this.task().taskId, newStatus).subscribe({
       next: () => {
         this.toast.success(`Status → "${newStatus}"`);
         this.updated.emit();
-        this._updating = false;
+        this.updating.set(false);
       },
       error: (err) => {
         this.toast.error(err?.error?.message || 'Failed to update status');
-        this._updating = false;
+        this.updating.set(false);
       },
     });
   }
 
   onDelete(): void {
     if (!confirm(`Delete "${this.task().title}"? This cannot be undone.`)) return;
-    this._deleting = true;
+    this.deleting.set(true);
     this.taskSvc.deleteTask(this.task().taskId).subscribe({
       next: () => {
         this.toast.info('Task deleted.');
         this.deleted.emit();
-        this._deleting = false;
+        this.deleting.set(false);
       },
       error: (err) => {
         this.toast.error(err?.error?.message || 'Failed to delete task');
-        this._deleting = false;
+        this.deleting.set(false);
       },
     });
   }

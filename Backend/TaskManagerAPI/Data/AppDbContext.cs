@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using TaskManagerAPI.Models;
 
@@ -65,10 +65,25 @@ namespace TaskManagerAPI.Data
             await this.Database.ExecuteSqlRawAsync("EXEC dbo.sp_UpdateTaskStatus @TaskId={0}, @NewStatus={1}", taskId, newStatus);
         }
 
-        // 7. Delete Task (Executes Command)
+        // 7. Update Full Task (Executes Command)
+        public async Task UpdateTaskAsync(WorkTask t)
+        {
+            await this.Database.ExecuteSqlRawAsync("EXEC dbo.sp_UpdateTask @TaskId={0}, @Title={1}, @Description={2}, @Priority={3}, @DueDate={4}, @Status={5}, @AssignedToUserId={6}",
+                t.TaskId, t.Title, t.Description, t.Priority, t.DueDate, t.Status, t.AssignedToUserId);
+        }
+
+        // 8. Delete Task (Executes Command)
         public async Task DeleteTaskAsync(int taskId)
         {
             await this.Database.ExecuteSqlRawAsync("EXEC dbo.sp_DeleteTask @TaskId={0}", taskId);
+        }
+
+        // 9. Get All Users (Returns List)
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await this.Users
+                .FromSqlRaw("EXEC dbo.sp_GetAllUsers")
+                .ToListAsync();
         }
     }
 }

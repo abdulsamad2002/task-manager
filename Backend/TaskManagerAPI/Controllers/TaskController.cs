@@ -59,6 +59,18 @@ namespace TaskManagerAPI.Controllers
         }
 
         /// <summary>
+        /// Updates an existing task with full details.
+        /// Restricted to Admin and Manager roles.
+        /// </summary>
+        [HttpPut("update")]
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> UpdateTask([FromBody] WorkTask task)
+        {
+            await _context.UpdateTaskAsync(task);
+            return Ok(new { message = "Task updated successfully." });
+        }
+
+        /// <summary>
         /// Updates the status of an existing task (e.g., Pending → In Progress → Completed).
         /// Available to all authenticated roles.
         /// </summary>
@@ -79,6 +91,18 @@ namespace TaskManagerAPI.Controllers
         {
             await _context.DeleteTaskAsync(taskId);
             return Ok(new { message = "Task deleted successfully." });
+        }
+
+        /// <summary>
+        /// Returns a list of all users in the system.
+        /// Available to Admin and Manager roles for task assignment.
+        /// </summary>
+        [HttpGet("users")]
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _context.GetAllUsersAsync();
+            return Ok(users);
         }
     }
 }

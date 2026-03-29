@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { TaskService } from '../../core/services/task.service';
 import { ToastService } from '../../core/services/toast.service';
-import { CreateTaskRequest, TaskPriority, TaskStatus } from '../../models/task.model';
+import { CreateTaskRequest, TaskPriority, TaskStatus, User } from '../../models/task.model';
 
 @Component({
   selector: 'app-create-task',
@@ -59,13 +59,18 @@ import { CreateTaskRequest, TaskPriority, TaskStatus } from '../../models/task.m
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="ct-user">Assign To (User ID) *</label>
+              <label class="form-label" for="ct-user">Assign To *</label>
               <div class="input-wrap">
                 <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <input class="form-input" id="ct-user" type="number" placeholder="User ID" min="1" formControlName="assignedToUserId" />
+                <select class="form-input form-select" id="ct-user" formControlName="assignedToUserId">
+                  <option [value]="null" disabled>{{ usersLoading() ? 'Loading users...' : 'Select team member' }}</option>
+                  @for (u of users(); track u.userId) {
+                    <option [value]="u.userId">{{ u.fullName }}</option>
+                  }
+                </select>
               </div>
               @if (f['assignedToUserId'].invalid && f['assignedToUserId'].touched) {
-                <span class="field-error">A valid user ID is required.</span>
+                <span class="field-error">Assignment is required.</span>
               }
             </div>
 
@@ -96,7 +101,7 @@ import { CreateTaskRequest, TaskPriority, TaskStatus } from '../../models/task.m
 
           <div class="form-actions">
             <button type="button" class="btn btn-secondary" (click)="taskForm.reset({status:'Pending'})">Reset</button>
-            <button type="submit" class="btn btn-primary" [disabled]="loading()">
+            <button type="submit" class="btn btn-primary" [disabled]="loading() || usersLoading()">
               @if (loading()) { <span class="spinner"></span> } Create Task
             </button>
           </div>
@@ -119,14 +124,16 @@ import { CreateTaskRequest, TaskPriority, TaskStatus } from '../../models/task.m
     }
   `],
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent implements OnInit {
   private fb      = inject(FormBuilder);
   private taskSvc = inject(TaskService);
   private toast   = inject(ToastService);
 
-  loading    = signal(false);
-  error      = signal('');
-  successMsg = signal('');
+  loading      = signal(false);
+  usersLoading = signal(true);
+  error        = signal('');
+  successMsg   = signal('');
+  users        = signal<User[]>([]);
 
   taskForm = this.fb.nonNullable.group({
     title:            ['', Validators.required],
@@ -139,6 +146,19 @@ export class CreateTaskComponent {
 
   get f() { return this.taskForm.controls; }
 
+  ngOnInit(): void {
+    this.taskSvc.getUsers().subscribe({
+      next: (users) => {
+        this.users.set(users);
+        this.usersLoading.set(false);
+      },
+      error: () => {
+        this.toast.error('Failed to load team members');
+        this.usersLoading.set(false);
+      }
+    });
+  }
+
   onSubmit(): void {
     if (this.taskForm.invalid) { this.taskForm.markAllAsTouched(); return; }
     this.loading.set(true);
@@ -150,7 +170,7 @@ export class CreateTaskComponent {
       next: () => {
         this.loading.set(false);
         this.successMsg.set('🎉 Task created successfully!');
-        this.taskForm.reset({ status: 'Pending' });
+        this.taskForm.reset({ status: 'Pending', assignedToUserId: null as any });
         this.toast.success('Task created!');
       },
       error: (err) => {
