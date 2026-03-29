@@ -1,0 +1,241 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\models\\worktask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:models\\worktask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\extensions\\exceptionmiddlewareextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:extensions\\exceptionmiddlewareextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\taskmanagerapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:taskmanagerapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\models\\errordetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:models\\errordetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|c:\\users\\islam\\onedrive\\desktop\\taskmanager\\backend\\taskmanagerapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C8965ADB-C1C3-8E84-B5BD-52EFBDCFED3C}|TaskManagerAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 323,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WorkTask.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\WorkTask.cs",
+              "RelativeDocumentMoniker": "Models\\WorkTask.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\WorkTask.cs",
+              "RelativeToolTip": "Models\\WorkTask.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T16:13:12.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T16:13:07.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\DTOs\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "DTOs\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\DTOs\\LoginRequest.cs",
+              "RelativeToolTip": "DTOs\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T09:44:55.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ExceptionMiddlewareExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Extensions\\ExceptionMiddlewareExtensions.cs",
+              "RelativeDocumentMoniker": "Extensions\\ExceptionMiddlewareExtensions.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Extensions\\ExceptionMiddlewareExtensions.cs",
+              "RelativeToolTip": "Extensions\\ExceptionMiddlewareExtensions.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T06:10:12.056Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ErrorDetails.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\ErrorDetails.cs",
+              "RelativeDocumentMoniker": "Models\\ErrorDetails.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\ErrorDetails.cs",
+              "RelativeToolTip": "Models\\ErrorDetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T06:08:29.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaskController.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Controllers\\TaskController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TaskController.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Controllers\\TaskController.cs",
+              "RelativeToolTip": "Controllers\\TaskController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T02:13:20.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAkwFQAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T15:26:09.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T10:29:40.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-27T10:27:08.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Data\\AppDbContext.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAwD4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:44:53.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "Models\\Role.cs",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Models\\Role.cs",
+              "RelativeToolTip": "Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T06:26:58.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-27T10:59:01.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TaskManagerAPI.csproj",
+              "DocumentMoniker": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\TaskManagerAPI.csproj",
+              "RelativeDocumentMoniker": "TaskManagerAPI.csproj",
+              "ToolTip": "C:\\Users\\islam\\OneDrive\\Desktop\\TaskManager\\Backend\\TaskManagerAPI\\TaskManagerAPI.csproj",
+              "RelativeToolTip": "TaskManagerAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-27T06:43:01.07Z"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 77,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
