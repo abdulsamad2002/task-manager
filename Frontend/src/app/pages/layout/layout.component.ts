@@ -38,19 +38,11 @@ import { AuthService } from '../../core/services/auth.service';
       </div>
 
       <nav class="sidebar-nav">
-        <a class="nav-item" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="sidebarOpen.set(false)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          Dashboard
-        </a>
-        <a class="nav-item" routerLink="/dashboard/my-tasks" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <a class="nav-item" routerLink="/dashboard/tasks" routerLinkActive="active" (click)="sidebarOpen.set(false)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          My Tasks
+          Tasks
         </a>
         @if (auth.isManager) {
-          <a class="nav-item" routerLink="/dashboard/all-tasks" routerLinkActive="active" (click)="sidebarOpen.set(false)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            All Tasks
-          </a>
           <a class="nav-item" routerLink="/dashboard/create-task" routerLinkActive="active" (click)="sidebarOpen.set(false)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             Create Task

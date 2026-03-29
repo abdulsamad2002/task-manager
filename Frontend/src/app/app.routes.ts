@@ -15,26 +15,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/layout/layout.component').then((m) => m.LayoutComponent),
     children: [
+      { path: '', redirectTo: 'tasks', pathMatch: 'full' },
       {
-        path: '',
+        path: 'tasks',
         loadComponent: () =>
-          import('./pages/dashboard/dashboard.component').then(
-            (m) => m.DashboardComponent
-          ),
-      },
-      {
-        path: 'my-tasks',
-        loadComponent: () =>
-          import('./pages/my-tasks/my-tasks.component').then(
-            (m) => m.MyTasksComponent
-          ),
-      },
-      {
-        path: 'all-tasks',
-        canActivate: [managerGuard],
-        loadComponent: () =>
-          import('./pages/all-tasks/all-tasks.component').then(
-            (m) => m.AllTasksComponent
+          import('./pages/tasks/tasks.component').then(
+            (m) => m.TasksComponent
           ),
       },
       {
